@@ -114,7 +114,15 @@ public class Model extends Observable {
             }
             else{
                 if(board.tile(col, i).value() == t.value()){
-                    return i;
+                    boolean flag = true;
+                    for(int j = i-1; j > row; --j){
+                        if(board.tile(col, j) != null){
+                            flag = false;
+                        }
+                    }
+                    if(flag){
+                        return i;
+                    }
                 }
             }
         }
