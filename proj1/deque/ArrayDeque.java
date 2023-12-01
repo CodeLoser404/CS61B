@@ -144,18 +144,19 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public boolean equals(Object other) {
-        if ((!(other instanceof Deque)) || (size() != ((Deque<T>) other).size())) {
+        if (!(other instanceof Deque)) {
             return false;
         }
-        T nodeThis = get(0);
-        T nodeO = ((Deque<T>) other).get(0);
+        Deque<T> otherDeque = (Deque<T>) other;
 
-        for (int i = 1; i < size(); i++) {
-            if (!(nodeThis.equals(nodeO))) {
+        if (size() != otherDeque.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < size(); i++) {
+            if (!get(i).equals(otherDeque.get(i))) {
                 return false;
             }
-            nodeThis = get(i);
-            nodeO = ((Deque<T>) other).get(i);
         }
         return true;
     }
