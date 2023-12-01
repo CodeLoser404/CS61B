@@ -1,6 +1,7 @@
 package deque;
 
-public class ArrayDeque<T> {
+import java.util.Iterator;
+public class ArrayDeque<T> implements Deque<T> {
     private T[] data;
     private int size;
     private int maxSize;
@@ -50,7 +51,7 @@ public class ArrayDeque<T> {
     public int minus(int i){
         return (i - 1 + maxSize) % maxSize;
     }
-
+    @Override
     public void addFirst(T item) {
         if(size == maxSize){
             doubleSpace();
@@ -59,7 +60,7 @@ public class ArrayDeque<T> {
         nextFirst = minus(nextFirst);
         ++size;
     }
-
+    @Override
     public void addLast(T item) {
         if(size == maxSize){
             doubleSpace();
@@ -68,7 +69,7 @@ public class ArrayDeque<T> {
         nextLast = plus(nextLast);
         ++size;
     }
-
+    @Override
     public T removeFirst() {
         if(size == 0 || maxSize/size >= 4){
             halfSpace();
@@ -80,7 +81,7 @@ public class ArrayDeque<T> {
         nextFirst = plus(nextFirst);
         return data[nextFirst];
     }
-
+    @Override
     public T removeLast() {
         if(size == 0 || maxSize/size >= 4){
             halfSpace();
@@ -92,24 +93,59 @@ public class ArrayDeque<T> {
         nextLast = minus(nextLast);
         return data[nextLast];
     }
-
+    @Override
     public T get(int index) {
         return data[plus(index + nextFirst)];
     }
-
+    @Override
     public int size() {
         return size;
     }
-
-    public boolean isEmpty(){
-        return size == 0;
-    }
-
+    @Override
     public void printDeque(){
         int i = plus(nextFirst);
         while(i != nextLast){
             System.out.print(data[i] + " ");
             i = plus(i);
         }
+    }
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
+    }
+    private class ArrayDequeIterator implements Iterator<T> {
+        private int count;
+        ArrayDequeIterator() {
+            count = -1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return count + 1 < size;
+        }
+
+        @Override
+        public T next() {
+            count += 1;
+            return data[plus(nextFirst+ count)];
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if ((!(other instanceof Deque)) || (size() != ((Deque<T>) other).size())) {
+            return false;
+        }
+        T nodeThis = get(0);
+        T nodeO = ((Deque<T>) other).get(0);
+
+        for (int i = 1; i < size(); i++) {
+            if (!(nodeThis.equals(nodeO))) {
+                return false;
+            }
+            nodeThis = get(i);
+            nodeO = ((Deque<T>) other).get(i);
+        }
+        return true;
     }
 }
