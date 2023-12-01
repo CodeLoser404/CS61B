@@ -73,6 +73,9 @@ public class ArrayDeque<T> {
         if(size == 0 || maxSize/size >= 4){
             halfSpace();
         }
+        if (size == 0) {
+            return null;
+        }
         --size;
         nextFirst = plus(nextFirst);
         return data[nextFirst];
@@ -81,6 +84,9 @@ public class ArrayDeque<T> {
     public T removeLast() {
         if(size == 0 || maxSize/size >= 4){
             halfSpace();
+        }
+        if (size == 0) {
+            return null;
         }
         --size;
         nextLast = minus(nextLast);
