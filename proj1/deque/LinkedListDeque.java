@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T>{
+public class LinkedListDeque<T> implements Deque<T> {
 
     public class Node {
         public T data;
@@ -26,6 +26,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         head.prev = head;
         size = 0;
     }
+
     @Override
     public void addFirst(T item) {
         Node temp = new Node(item, head, head.next);
@@ -33,6 +34,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         head.next = temp;
         ++size;
     }
+
     @Override
     public void addLast(T item) {
         Node temp = new Node(item, head.prev, head);
@@ -40,9 +42,10 @@ public class LinkedListDeque<T> implements Deque<T>{
         head.prev = temp;
         ++size;
     }
+
     @Override
     public T removeFirst() {
-        if(size <= 0){
+        if (size <= 0) {
             return null;
         }
         T item = head.next.data;
@@ -51,9 +54,10 @@ public class LinkedListDeque<T> implements Deque<T>{
         --size;
         return item;
     }
+
     @Override
     public T removeLast() {
-        if(size <= 0){
+        if (size <= 0) {
             return null;
         }
         T item = head.prev.data;
@@ -62,9 +66,10 @@ public class LinkedListDeque<T> implements Deque<T>{
         --size;
         return item;
     }
+
     @Override
     public T get(int index) {
-        if(index >= size){
+        if (index >= size) {
             return null;
         }
         Node p = head.next;
@@ -73,6 +78,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         }
         return p.data;
     }
+
     @Override
     public int size() {
         return size;
@@ -88,12 +94,14 @@ public class LinkedListDeque<T> implements Deque<T>{
         }
         return getRecursiveHelper(p.next, index - 1);
     }
+
     @Override
-    public void printDeque(){
-        for(Node p = head.next; p != head; p = p.next){
+    public void printDeque() {
+        for (Node p = head.next; p != head; p = p.next) {
             System.out.print(p.data + " ");
         }
     }
+
     @Override
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();

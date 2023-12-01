@@ -1,6 +1,7 @@
 package deque;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class ArrayDequeTest {
@@ -42,8 +43,9 @@ public class ArrayDequeTest {
         assertEquals(2, dq.size());
         dq.printDeque();
     }
+
     @Test
-    public void testppt(){
+    public void testppt() {
         ArrayDeque<String> dq = new ArrayDeque<>();
         dq.addLast("a");
         dq.addLast("b");
