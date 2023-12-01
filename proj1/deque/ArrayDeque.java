@@ -70,7 +70,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if(maxSize/size >= 4){
+        if(size == 0 || maxSize/size >= 4){
             halfSpace();
         }
         --size;
@@ -79,7 +79,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        if(maxSize/size >= 4){
+        if(size == 0 || maxSize/size >= 4){
             halfSpace();
         }
         --size;
