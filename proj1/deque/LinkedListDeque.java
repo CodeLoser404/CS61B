@@ -5,9 +5,9 @@ import java.util.Iterator;
 public class LinkedListDeque<T> implements Deque<T> {
 
     public class Node {
-        public T data;
-        public Node next;
-        public Node prev;
+        private T data;
+        private Node next;
+        private Node prev;
 
         public Node(T item, Node p, Node n) {
             data = item;
