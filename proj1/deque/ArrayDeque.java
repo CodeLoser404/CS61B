@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] data;
     private int size;
     private int maxSize;
@@ -17,7 +17,7 @@ public class ArrayDeque<T> implements Deque<T> {
         maxSize = 8;
     }
 
-    public void doubleSpace() {
+    private void doubleSpace() {
         T[] newdata = (T[]) new Object[2 * maxSize];
         int j = 0;
         while (nextLast != nextFirst) {
@@ -31,7 +31,7 @@ public class ArrayDeque<T> implements Deque<T> {
         data = newdata;
     }
 
-    public void halfSpace() {
+    private void halfSpace() {
         T[] newdata = (T[]) new Object[maxSize / 2];
         int j = 0;
         nextFirst = plus(nextFirst);
@@ -45,11 +45,11 @@ public class ArrayDeque<T> implements Deque<T> {
         data = newdata;
     }
 
-    public int plus(int i) {
+    private int plus(int i) {
         return (i + 1 + maxSize) % maxSize;
     }
 
-    public int minus(int i) {
+    private int minus(int i) {
         return (i - 1 + maxSize) % maxSize;
     }
 
@@ -118,7 +118,7 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-    //    @Override
+    @Override
     public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
