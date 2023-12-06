@@ -1,6 +1,8 @@
 package capers;
 
 import java.io.File;
+import java.io.IOException;
+
 import static capers.Utils.*;
 
 /** A repository for Capers 
@@ -18,8 +20,8 @@ public class CapersRepository {
     static final File CWD = new File(System.getProperty("user.dir"));
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = null; // TODO Hint: look at the `join`
-                                            //      function in Utils
+    static final File CAPERS_FOLDER = Utils.join(CWD, ".capers");
+    static final File STORY_FILE = Utils.join(CAPERS_FOLDER, "story.txt");
 
     /**
      * Does required filesystem operations to allow for persistence.
@@ -31,7 +33,19 @@ public class CapersRepository {
      *    - story -- file containing the current story
      */
     public static void setupPersistence() {
-        // TODO
+        if(!CAPERS_FOLDER.exists()){
+            CAPERS_FOLDER.mkdir();
+        }
+        if(!Dog.DOG_FOLDER.exists()){
+            Dog.DOG_FOLDER.mkdir();
+        }
+        if(!STORY_FILE.exists()){
+            try{
+                STORY_FILE.createNewFile();
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -40,7 +54,10 @@ public class CapersRepository {
      * @param text String of the text to be appended to the story
      */
     public static void writeStory(String text) {
-        // TODO
+        String oldStory = Utils.readContentsAsString(STORY_FILE);
+        String newStory = oldStory + text + "\n";
+        Utils.writeContents(STORY_FILE, newStory);
+        System.out.println(newStory);
     }
 
     /**
@@ -49,7 +66,9 @@ public class CapersRepository {
      * Also prints out the dog's information using toString().
      */
     public static void makeDog(String name, String breed, int age) {
-        // TODO
+        Dog dog = new Dog(name, breed, age);
+        System.out.println(dog.toString());
+        dog.saveDog();
     }
 
     /**
@@ -59,6 +78,11 @@ public class CapersRepository {
      * @param name String name of the Dog whose birthday we're celebrating.
      */
     public static void celebrateBirthday(String name) {
-        // TODO
+        File readFile = Utils.join(Dog.DOG_FOLDER, name + ".ser");
+        if(readFile.exists()){
+            Dog dog = Utils.readObject(readFile, Dog.class);
+            dog.haveBirthday();
+            Utils.writeObject(readFile, dog);
+        }
     }
 }
