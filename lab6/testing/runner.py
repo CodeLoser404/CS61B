@@ -69,7 +69,7 @@ Also check that your REPO_DIR environment variable is the path to your
 `sp21-s***` directory. You can check this by running the command:
 
     $ echo REPO_DIR
-    /Users/omarkhan902/cs61b/61b_sp21_stuff/sp21-s3
+    /e/Project/CSdiy/CS61B/skeleton-sp21-master/
 
 That's what mine looks like. Go back to lab1 if you are still having issues"""
 
