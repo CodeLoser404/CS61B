@@ -139,26 +139,29 @@ public class BSTMap<K extends Comparable<K>, V extends Comparable<V>> implements
         printInOrderHelper(root.right);
     }
 
-    private void KeyInOrder(BSTNode root, List<K> res){
+    private void KeyInOrder(BSTNode root, List<K> res) {
         if (root == null) return;
-        printInOrderHelper(root.left);
+        KeyInOrder(root.left, res);
         res.add(root.key);
-        printInOrderHelper(root.right);
+        KeyInOrder(root.right, res);
     }
 
-    private class BSTMapIter implements Iterator<K>{
+    private class BSTMapIter implements Iterator<K> {
         int cur;
         List<K> keys = new ArrayList<K>();
-        public BSTMapIter(){
+
+        public BSTMapIter() {
             KeyInOrder(root, keys);
             cur = 0;
         }
+
         @Override
-        public boolean hasNext(){
-            return cur == size - 1;
+        public boolean hasNext() {
+            return cur < size;
         }
+
         @Override
-        public K next(){
+        public K next() {
             ++cur;
             return keys.remove(0);
         }
